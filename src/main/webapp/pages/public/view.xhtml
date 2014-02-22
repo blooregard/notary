@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/WEB-INF/templates/main.xhtml">
+
+    <ui:define name="head">
+    Notary: #{notary.name}
+</ui:define>
+
+    <ui:define name="body">
+        <h:panelGrid columns="2">
+            <h:outputLabel id="id_label" name="id_label" for="id" value="ID:" />
+            <h:outputText id="id" name="id" value="#{notary.id}"
+                required="true">
+            </h:outputText>
+
+            <h:outputLabel id="name_label" name="name_label"
+                for="name" value="Name:" />
+            <h:outputText id="name" name="name"
+                value="#{notary.name}" required="true">
+            </h:outputText>
+
+
+        </h:panelGrid>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sos="http://java.sun.com/jsf/composite/soscomp"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main.xhtml">
+
+	<ui:define name="head">
+        View Complaints for #{documentController.notary.name}
+    </ui:define>
+
+	<ui:define name="body">
+		<h:form id="form">
+
+			<p:treeTable id="treetable" value="#{documentsController.root}"
+				var="document">
+				<f:facet name="header">
+            Document Viewer
+        </f:facet>
+
+				<p:column sortBy="#{document.type}" style="width:32%">
+					<f:facet name="header">
+                Name
+            </f:facet>
+					<h:outputText value="#{document.type}" />
+				</p:column>
+
+				<p:column  sortBy="#{document.issuedDate}" style="width:32%">
+					<f:facet name="header">
+                Size
+            </f:facet>
+					<h:outputText value="#{document.issuedDate}" />
+				</p:column>
+
+				<p:column style="width:32%">
+					<f:facet name="header">
+                Type
+            </f:facet>
+					<h:outputText value="#{document.comment}" />
+				</p:column>
+
+				<p:column style="width:4%">
+					<p:commandLink update=":form:documentPanel"
+						oncomplete="documentDialog.show()" title="View Detail"
+						styleClass="ui-icon ui-icon-search">
+						<f:setPropertyActionListener value="#{document}"
+							target="#{documentsController.selectedCensure}" />
+					</p:commandLink>
+				</p:column>
+			</p:treeTable>
+
+			<p:dialog id="dialog" header="Censure Detail" showEffect="fade"
+				widgetVar="documentDialog" modal="true">
+				<p:outputPanel id="documentPanel">
+					<h:panelGrid columns="2" cellpadding="5"
+						rendered="#{not empty documentsController.selectedCensure}">
+						<h:outputLabel for="name" value="Type: " />
+						<h:outputText id="name"
+							value="#{documentsController.selectedCensure.type}"
+							style="font-weight:bold" />
+
+						<h:outputLabel for="size" value="Date: " />
+						<h:outputText id="size"
+							value="#{documentsController.selectedCensure.issuedDate}"
+							style="font-weight:bold" />
+
+						<h:outputLabel for="type" value="Comment " />
+						<h:outputText id="type"
+							value="#{documentsController.selectedCensure.comment}"
+							style="font-weight:bold" />
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,23 @@
+<!-- create-notary-flow.xml -->
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      start-state="create">
+
+    <persistence-context/>
+
+    <var name="notary" class="us.co.state.sos.notary.entity.Notary"/>
+
+    <view-state id="create" view="/pages/public/create.xhtml">
+        <transition on="createNotary" to="saveNotary"/>
+    </view-state>
+
+    <action-state id="saveNotary">
+        <evaluate expression="notaryService.create(notary)"/>
+        <transition to="view" on="Success"/>
+    </action-state>
+
+    <end-state id="view" view="/pages/public/view.xhtml" commit="true"/>
+ 
+</flow>
